@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const routesproductos = require('./routes/routesProductos')
 const routecarrito = require('./routes/routesCarrito')
-const multer = require('multer')
+const multer = require('multer');
+const { error } = require("console");
 
 //Seteo donde se guardaran los files y con que nombres
 const storage = multer.diskStorage({
@@ -14,13 +15,19 @@ const storage = multer.diskStorage({
   }
 })
 
+function error404(req, res, next){
+    res.status(404).json({ error : -2, descripcion: "ruta no encontrada"})
+}
+    
+
 //middlewares
 app.use(multer({storage}).single("thumbnail"))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname+"/public"));
 app.use('/api/productos', routesproductos);
-app.use('/api/carrito', routecarrito)
+app.use('/api/carrito', routecarrito);
+app.use(error404);
 
 
 //empiezo el server
