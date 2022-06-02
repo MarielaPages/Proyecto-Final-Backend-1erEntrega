@@ -23,7 +23,7 @@ router.delete('/:id', async (req, res) => {
 router.get('/:id/productos', async(req, res) =>{
     const { id } = req.params;
     const productosCarrito = await archivoCarrito.getAllById(parseInt(id));
-    res.json({productosCarrito: productosCarrito})
+    res.json(productosCarrito)
 })
 
 //agrego producto por id a un carrito por id
@@ -40,8 +40,8 @@ router.post('/:id/productos', async (req, res) => {
     
     if (carritoASuplirIdIndex){
         const carrito = await archivoCarrito.getById(parseInt(id));
-        const productos = await archivoProductos.getAll();
-        const productoBuscado = productos.find(producto => producto.id === idProd)
+        const productos = await archivoProductos.getAll(); 
+        const productoBuscado = productos.find(producto => producto.id === parseInt(idProd))
         if(productoBuscado){
             const producto = await archivoProductos.getById(parseInt(idProd))
             carrito.products.push(producto);

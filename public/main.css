@@ -41,3 +41,26 @@ body {
 #deleteCart{
     margin-left: 1rem;
 }
+
+/*seccion comprar*/
+.buyContenedor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.border{
+    border: 2px solid black;
+    width: 25rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Seccion borrar prod de carrito */
+#prodElim{
+    margin-top: 1rem;
+}

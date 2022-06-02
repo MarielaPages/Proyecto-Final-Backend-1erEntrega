@@ -78,10 +78,10 @@ async function crearCarrito(){
     let idCarrito = ''
     const options = {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json'}
     }
     await fetch(`http://localhost:8080/api/carrito/`, options)
-    .then(res => res.json())
+    .then(res => res.json()) // el .json() funciona como un JSON.parse()
     .then(json => idCarrito = json)
     const crearCarritoContainer = document.getElementById('crearCarritoContainer');
     crearCarritoContainer.innerHTML = `
@@ -98,5 +98,73 @@ async function deleteCart(id){
                                         <h4>Your cart has been deleted</h4>
                                         `
     
+}
+
+//funcion para comprar productos por id
+async function buy(){
+    const idCarrito = document.getElementById('idCarrito').value; //devuelven strings
+    const idProdComprar = document.getElementById('idProdComprar').value;
+    const idProdComprarObj = {idProd: idProdComprar}
+
+    const options = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(idProdComprarObj)
+    }
+    await fetch(`http://localhost:8080/api/carrito/${idCarrito}/productos`, options)
+    document.getElementById('idCarrito').value = ''
+    document.getElementById('idProdComprar').value = ''
+}
+
+// Funcion para mostrar productos del carrito
+async function mostrarProds(){
+    let productosCarrito = []
+    let prodsPorCarrito = document.getElementById('prodsPorCarrito');
+    let tituloProdsPorCarrito = document.getElementById('tituloProdsPorCarrito');
+
+    const idCarrito = document.getElementById('idCarritoMostrar').value; 
+
+    await fetch(`http://localhost:8080/api/carrito/${idCarrito}/productos`)
+    .then(res => res.json())
+    .then(response => productosCarrito = response)
+
+    console.log(productosCarrito);
+
+    if(productosCarrito.length>0){
+        tituloProdsPorCarrito.innerHTML = 'These are your products:'
+        prodsPorCarrito.innerHTML = productosCarrito.map(product => {
+            return (
+                `<div class="card col-sm-12 col-md-4 col-lg-3 marginCards" style="width: 18rem;">
+                    <img src="${product.thumbnail}" class="card-img-top" alt="${product.title}">
+                    <div class="card-body" id="prod${product.id}">
+                        <h5 class="card-title">${product.title}</h5>
+                        <h5 class="card-title">Id: ${product.id}</h5>
+                        <p class="card-text">${product.description}</p>
+                        <p class="card-text">Code: ${product.code}</p>
+                        <p class="card-text">Price: ${product.price}</p>
+                        <p class="card-text">Stock: ${product.stock}</p>
+                    </div>
+                </div>`
+            )
+        }).join('')
+    } else{
+        productosContainer.innerHTML = `<p class="text-center">There are no products in your cart</p>`
+    }
+    document.getElementById('idCarritoMostrar').value = ''
+}
+
+//Funcion para borrar un producto del carrito
+async function deleteProdCart(){
+    let idCarrito = document.getElementById('idCarritoBorrarProd').value;
+    let idProdBorrar = document.getElementById('idProdBorrar').value;
+    let prodElim = document.getElementById('prodElim');
+
+    const options = { method: 'DELETE' }
+    await fetch(`http://localhost:8080/api/carrito/${idCarrito}/productos/${idProdBorrar}`, options)
+
+    prodElim.innerHTML = `Se han eliminado los productos con id ${idProdBorrar}`
+    
+    document.getElementById('idCarritoBorrarProd').value = ''
+    document.getElementById('idProdBorrar').value = ''
 }
 

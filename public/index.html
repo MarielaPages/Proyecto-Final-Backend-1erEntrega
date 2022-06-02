@@ -28,7 +28,51 @@
     </div> 
 
     <div id="crearCarritoContainer">
-        <button onclick="crearCarrito()" class="btn btn-secondary">Crear Carrito</button>
+        <button onclick="crearCarrito()" class="btn btn-secondary">Create Cart</button>
+    </div>
+
+    <div class="buyContenedor">
+        <div class="border">
+            <div>
+                <label for="idCarrito">Place your cart id:</label>
+                <input type="number" id="idCarrito" class="form-control">
+            </div>
+            <div>
+                <label for="idProdComprar">Place the id of the product you want to buy:</label>
+                <input type="text" id="idProdComprar" class="form-control">     
+            </div>
+            <button onclick="buy()" class="btn btn-secondary">Buy</button>
+        </div>
+    </div>
+        
+
+    <div class="buyContenedor">
+        <div>
+            <label for="idCarritoMostrar">Place your cart id to see your products:</label>
+            <input type="number" id="idCarritoMostrar" class="form-control">
+        </div>
+        <button onclick="mostrarProds()" class="btn btn-secondary">See my products</button>
+    </div>
+    <div>
+        <h3 id="tituloProdsPorCarrito" class="text-center"></h3>
+        <div class="container">
+            <div class="row" id="prodsPorCarrito"></div>
+        </div>
+    </div>
+
+    <div class="buyContenedor">
+        <div class="border">
+            <div>
+                <label for="idCarritoBorrarProd">Place your cart id:</label>
+                <input type="number" id="idCarritoBorrarProd" class="form-control">
+            </div>
+            <div>
+                <label for="idProdBorrar">Place the id of the product you want to delete:</label>
+                <input type="text" id="idProdBorrar" class="form-control">     
+            </div>
+            <button onclick="deleteProdCart()" class="btn btn-secondary">Delete Product</button>
+            <p id="prodElim"></p>
+        </div>
     </div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
