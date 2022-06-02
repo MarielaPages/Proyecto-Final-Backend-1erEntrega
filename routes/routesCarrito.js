@@ -6,23 +6,27 @@ const ContenedorCarritos = require('../contenedorCarritos')
 const archivoProductos = new Contenedor("productos.txt");
 const archivoCarrito = new ContenedorCarritos('carritos.txt')
 
+//Creo carrito y devuelvo id
 router.post('/', async (req, res) => {
     const newCart = await archivoCarrito.createCart()
     res.json({idCarrito: newCart}) 
 })
 
+//borro carrito por id
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     const nuevoArchivo = await archivoCarrito.deleteById(parseInt(id));
     res.json({CarritoEliminado : nuevoArchivo})
 })
 
+//Me traigo los productos de un carrito
 router.get('/:id/productos', async(req, res) =>{
     const { id } = req.params;
     const productosCarrito = await archivoCarrito.getAllById(parseInt(id));
     res.json({productosCarrito: productosCarrito})
 })
 
+//agrego producto por id a un carrito por id
 router.post('/:id/productos', async (req, res) => {
     const {id} = req.params;
     const { idProd } = req.body;
@@ -58,6 +62,7 @@ router.post('/:id/productos', async (req, res) => {
 }) //supongo que el id del producto llega en el body de la peticion, como si lo escribieran en un formulario
 // el json de este post seria { "idProd": elId }
 
+//Elimino producto por id de un carrito por id
 router.delete('/:id/productos/:id_prod', async (req, res) => {
     const { id } = req.params;
     const { id_prod } = req.params;

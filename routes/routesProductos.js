@@ -32,17 +32,20 @@ function adminOrUserDelete(req, res, next){
     }
 }
 
+//Me traigo todos los productos 
 router.get("/", async (request, response) => {
     const productos = await archivoNuevo.getAll();
     response.json(productos); 
 });
 
+//Traigo producto por id
 router.get("/:id", async (request, response) => {
     const { id } = request.params;
     const productoSegunId = await archivoNuevo.getById(parseInt(id));
     response.json(productoSegunId);
 });
 
+//Agrego producto
 router.post('/', adminOrUserPost, async (request, response) => {
     const producto = request.body; // esto es el objeto que llega con los datos. Lo uso para pasarselo al save
     const imagen = request.file;
@@ -51,6 +54,7 @@ router.post('/', adminOrUserPost, async (request, response) => {
     response.redirect('/')
 })
 
+//actualizo producto por id
 router.put("/:id", adminOrUserPut, async (request, response) => {
     const { id } = request.params;
     const idParse = parseInt(id);
@@ -70,19 +74,20 @@ router.put("/:id", adminOrUserPut, async (request, response) => {
         productoModif.thumbnail = productos[indexElemSuplir].thumbnail; //!!Por ahora uso esto, dsp ver si aplico file en un form para usar multer
         productos.splice(indexElemSuplir, 1, productoModif) //borro elemento con el id corresp y lo reemplazo por el nuevo objeto
         await archivoNuevo.save2(productos)
-        response.json({productoModificado: productoModif})
+        response.redirect('/')
     }else{
         response.send("no existe el elemento que busca modificar")
     }
 });
 
+//borro producto por id
 router.delete("/:id", adminOrUserDelete, async (request, response) => {
     const { id } = request.params;
     const productos = await archivoNuevo.getAll();
     const productoBorrar = productos.find(producto => producto.id === parseInt(id));
     if(productoBorrar){
         await archivoNuevo.deleteById(parseInt(id));
-        response.json({mensaje:'producto borrado con exito'})
+        response.redirect('/')
     }
     else{
         response.json({mensaje: "no existia producto a borrar"})

@@ -73,10 +73,9 @@ class ContenedorCarritos{
         try{
             const carritos = await fs.promises.readFile(`./dataBase/${this.file}`, 'utf-8');
             const arrayCarritos = JSON.parse(carritos);
-            const carritoBorrar = arrayCarritos.find((carrito) => carrito.id === id)
-            if(carritoBorrar){
-                const carrito = await this.getById(id)
-                return carrito.products;
+            const carritoProdsMostrar = arrayCarritos.find((carrito) => carrito.id === id)
+            if(carritoProdsMostrar){
+                return carritoProdsMostrar.products;
             }
             else{
                 return `no existe el carrito`

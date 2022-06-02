@@ -8,14 +8,36 @@ body {
     font-family: 'Nunito', sans-serif;
 }
 
+/*Cards*/
+.cardsContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.marginCards{
+    margin: auto;
+}
+
+
 /*Form*/
 .formPartial{
-    margin-top: 1rem;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 2rem;
 }
 .form-control{
     margin-bottom: 1rem;
     width: 20rem;
+}
+
+/*carrito*/
+#crearCarritoContainer{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+#deleteCart{
+    margin-left: 1rem;
 }
