@@ -7,7 +7,7 @@ let productosContainer = document.getElementById('productos');
 async function fetchProds(){
     await fetch('http://localhost:8080/api/productos')
     .then(res => res.json())
-    .then(json => products = json)
+    .then(json => products = json) //aca el json es la rsta parseada y convertida a objeto javasript (array en este caso)
 
     if(products.length>0){
         productosContainer.innerHTML = products.map(product => {
@@ -127,8 +127,6 @@ async function mostrarProds(){
     await fetch(`http://localhost:8080/api/carrito/${idCarrito}/productos`)
     .then(res => res.json())
     .then(response => productosCarrito = response)
-
-    console.log(productosCarrito);
 
     if(productosCarrito.length>0){
         tituloProdsPorCarrito.innerHTML = 'These are your products:'

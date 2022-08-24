@@ -3,7 +3,7 @@ const app = express();
 const routesproductos = require('./routes/routesProductos')
 const routecarrito = require('./routes/routesCarrito')
 const multer = require('multer');
-const { error } = require("console");
+const morgan = require('morgan')
 
 //Seteo donde se guardaran los files y con que nombres
 const storage = multer.diskStorage({
@@ -21,6 +21,7 @@ function error404(req, res, next){
     
 
 //middlewares
+app.use(morgan("dev"))
 app.use(multer({storage}).single("thumbnail"))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

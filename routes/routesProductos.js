@@ -47,7 +47,7 @@ router.get("/:id", async (request, response) => {
 
 //Agrego producto
 router.post('/', adminOrUserPost, async (request, response) => {
-    const producto = request.body; // esto es el objeto que llega con los datos. Lo uso para pasarselo al save
+    const producto = request.body; // esto es el objeto que llega con los datos (clave lo que esta en name del input del html y valor lo que uno escribe). Lo uso para pasarselo al save
     const imagen = request.file;
     producto.thumbnail = '/files/'+imagen.filename; // agrego esta propiedad al objeto
     const productoAgregado = await archivoNuevo.save(producto)

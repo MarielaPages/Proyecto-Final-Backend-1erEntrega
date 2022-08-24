@@ -4,7 +4,7 @@ const Contenedor = require('../contenedor')
 const ContenedorCarritos = require('../contenedorCarritos')
 
 const archivoProductos = new Contenedor("productos.txt");
-const archivoCarrito = new ContenedorCarritos('carritos.txt')
+const archivoCarrito = new ContenedorCarritos('carritos.txt');
 
 //Creo carrito y devuelvo id
 router.post('/', async (req, res) => {
